@@ -11,8 +11,11 @@ import List from '@/components/listDoctors/List';
 function Home({ doctors: initialDoctors }: { doctors: Doctor[] }) {
   const [doctors, setDoctors] = useState(initialDoctors);
 
+  /**
+   * Filter the list of doctors based on the search term, this can be a name or speciality.
+   * @param {string} searchTerm
+   */
   const handleSearch = (searchTerm: string) => {
-    // Filtrar la lista de doctores basado en el término de búsqueda
     const filteredDoctors = initialDoctors.filter(
       (doctor) =>
         doctor.full_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -43,6 +46,10 @@ function Home({ doctors: initialDoctors }: { doctors: Doctor[] }) {
   );
 }
 
+/**
+ * Getting all available doctors
+ * @returns {props}
+ */
 export async function getServerSideProps() {
   const doctors = await doctorService.getAllDoctors();
 

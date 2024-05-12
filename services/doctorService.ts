@@ -1,8 +1,11 @@
-import { collection, doc, getDoc, getDocs, query, where } from 'firebase/firestore';
+import { collection, doc, getDoc, getDocs } from 'firebase/firestore';
 
-import Doctor from '@/interfaces/doctor.interface';
 import { db } from '@/firebase/client';
 
+/**
+ * THIS FUNCITON ALLOW FETCHING ALL DOCTORS AVIABLE IN DATABASE
+ * @returns {Doctor[]}
+ */
 async function getAllDoctors() {
   try {
     const queryAllDoctors = await getDocs(collection(db, 'doctors'));
@@ -12,7 +15,7 @@ async function getAllDoctors() {
       doctorsArray.push({ ...doc.data(), id: doc.id });
     });
 
-    return doctorsArray.slice(0, 100);
+    return doctorsArray.slice(0, 120);
   } catch (e) {
     console.error('Error fetching documents: ', e);
 
@@ -20,46 +23,11 @@ async function getAllDoctors() {
   }
 }
 
-async function searchDoctorsByName(name: string) {
-  const doctorsRef = collection(db, 'doctors');
-  const q = query(doctorsRef, where('full_name', '<=', name + '\uf8ff'));
-
-  try {
-    const querySnapshot = await getDocs(q);
-    const matchingDoctors: Doctor[] = [];
-
-    querySnapshot.forEach((doc) => {
-      matchingDoctors.push(doc.data() as Doctor);
-    });
-
-    return matchingDoctors;
-  } catch (error) {
-    console.error('Error searching doctors by name: ', error);
-
-    return [];
-  }
-}
-
-async function searchDoctorsBySpeciality(speciality: string) {
-  const doctorsRef = collection(db, 'doctors');
-  const q = query(doctorsRef, where('speciality', '<=', speciality + '\uf8ff'));
-
-  try {
-    const querySnapshot = await getDocs(q);
-    const matchingDoctors: Doctor[] = [];
-
-    querySnapshot.forEach((doc) => {
-      matchingDoctors.push(doc.data() as Doctor);
-    });
-
-    return matchingDoctors;
-  } catch (error) {
-    console.error('Error searching doctors by name: ', error);
-
-    return [];
-  }
-}
-
+/**
+ * THIS FUNCTION ALLOW FETCHING A DOCTOR BY ID
+ * @param {string} doctorId
+ * @returns  {Doctor}
+ */
 async function getDoctorById(doctorId: string) {
   const doctorRef = doc(db, 'doctors', doctorId);
 
@@ -83,7 +51,5 @@ async function getDoctorById(doctorId: string) {
 
 export const doctorService = {
   getAllDoctors,
-  searchDoctorsByName,
-  searchDoctorsBySpeciality,
   getDoctorById,
 };
