@@ -26,7 +26,7 @@ function DoctorDetail({ doctor }: { doctor: Doctor }) {
           />
           <h2 className="text-3xl font-bold mt-2">{doctor?.full_name}</h2>
           <h3 className="text-xl font-bold my-2">{doctor?.specialty}</h3>
-          <p className="text-lg max-w-sm text-justify">{doctor?.biography}</p>
+          <p className="text-xl max-w-sm text-justify">{doctor?.biography}</p>
         </div>
 
         <div className="flex flex-col justify-center items-center my-4">
