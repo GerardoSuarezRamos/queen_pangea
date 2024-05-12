@@ -6,13 +6,13 @@ import { db } from '@/firebase/client';
 async function getAllDoctors() {
   try {
     const queryAllDoctors = await getDocs(collection(db, 'doctors'));
-    const doctorsArray: Doctor[] = [];
+    const doctorsArray: any[] = [];
 
     queryAllDoctors.forEach((doc) => {
-      doctorsArray.push(doc.data() as Doctor);
+      doctorsArray.push({ ...doc.data(), id: doc.id });
     });
 
-    return doctorsArray;
+    return doctorsArray.slice(0, 3);
   } catch (e) {
     console.error('Error fetching documents: ', e);
 
@@ -68,6 +68,7 @@ async function getDoctorById(doctorId: string) {
 
     if (doctorSnapshot.exists()) {
       return doctorSnapshot.data();
+      console.log(doctorSnapshot);
     } else {
       console.log('No se encontró ningún doctor con el ID especificado.');
 
