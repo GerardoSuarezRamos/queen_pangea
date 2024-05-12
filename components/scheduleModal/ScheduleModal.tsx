@@ -39,12 +39,16 @@ export function DialogDemo() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline">Schedule an appointment</Button>
+        <Button className="text-xl" variant="outline">
+          Schedule an appointment
+        </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Schedule an appointment</DialogTitle>
-          <DialogDescription>Schedule an appointment with our doctor</DialogDescription>
+          <DialogTitle className="text-center">Schedule an appointment</DialogTitle>
+          <DialogDescription className="text-center">
+            Schedule an appointment with our doctor
+          </DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">
           <div className="grid grid-cols-4 items-center gap-4">
