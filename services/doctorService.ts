@@ -12,7 +12,7 @@ async function getAllDoctors() {
       doctorsArray.push({ ...doc.data(), id: doc.id });
     });
 
-    return doctorsArray.slice(0, 3);
+    return doctorsArray.slice(0, 100);
   } catch (e) {
     console.error('Error fetching documents: ', e);
 
